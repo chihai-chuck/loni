@@ -1,0 +1,103 @@
+@import "shim";
+@import "fonts/iconloni";
+
+[class*="loni-"] {
+    & {
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: 0;
+        list-style-type: none;
+        -webkit-text-size-adjust: none;
+        zoom: 1;
+        resize: none;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-touch-callout: none;
+    }
+    input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #fff inset; }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button { /* 去除number类型输入框右侧的spinners */
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    :active, :focus { outline: none; }
+    ::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+    ::-webkit-input-placeholder {
+        color: #ccc;
+    }
+    em { font-style: normal; }
+    svg:not(:root) { overflow: hidden; }
+    img {
+        display: block;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: normal;
+        font-size: inherit;
+        margin-block-start: 0;
+        margin-block-end: 0;
+    }
+    input, button, textarea { -webkit-appearance: none; }
+    input, button, textarea, select, optgroup, option {
+        font-family: inherit;
+        font-size: inherit;
+        font-style: inherit;
+        font-weight: inherit;
+    }
+    input {
+        display: block;
+        background-color: transparent;
+        &:disabled {
+            color: #ccc;
+        }
+    }
+    button {
+        display: block;
+        background-color: transparent;
+    }
+    table {
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    b {
+        font-weight: normal;
+    }
+    i[class*="loni"] {
+        .align(center);
+        font-style: normal;
+    }
+    iframe {
+        display: block;
+    }
+    article {
+        all: initial !important;
+    }
+    pre {
+        overflow: hidden;
+        white-space: pre-line;
+        font-family: inherit;
+        /deep/ img {
+            max-width: 100%;
+        }
+    }
+
+    div.img {
+        overflow: hidden;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+}
+
+[class*="icon-loni"] {
+    font-family: PingFang SC, Microsoft YaHei, "-apple-system", HelveticaNeue, Noto Sans, iconloni, sans-serif;
+}
