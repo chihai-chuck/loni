@@ -42,7 +42,7 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop, Ref, Emit } from "vue-property-decorator";
+    import { Component, Prop, Ref, Emit } from "vue-facing-decorator";
     import { browserElementComputedStyle } from "@pecasha/util";
     import loading from "../loading";
 
@@ -52,7 +52,8 @@
         name: "LoniScroll",
         components: {
             loading
-        }
+        },
+        emits: ["infinite", "scrolling"]
     })
     export default class LoniScroll extends Vue {
         /** 禁用加载更多功能 */
@@ -95,7 +96,7 @@
         @Prop()
         public color?: string;
 
-        @Ref() private scroll!: HTMLDivElement;
+        @Ref() public scroll!: HTMLDivElement;
 
         public get options() {
             return {
@@ -111,13 +112,13 @@
             }
         }
 
-        private top = 0;
-        private state = 0;
+        public top = 0;
+        public state = 0;
         private startY = 0;
         private touchScroll = false;
-        private touching = false;
+        public touching = false;
         private infiniteLoading = false;
-        private offsetPullRefreshHeight = 50;
+        public offsetPullRefreshHeight = 50;
         private startScroll = 0;
         private refreshScrollHeight = 0;
 
@@ -129,13 +130,13 @@
             this.offsetPullRefreshHeight = parseFloat(browserElementComputedStyle(this.scroll.querySelector(".pull-refresh") as HTMLElement, "height")?.toString() || "0");
         }
 
-        private touchStart(e: TouchEvent) {
+        public touchStart(e: TouchEvent) {
             this.startY = e.targetTouches[0].pageY;
             this.startScroll = this.scroll.scrollTop || 0;
             this.touching = true;
             this.touchScroll = true;
         }
-        private touchMove(e: TouchEvent) {
+        public touchMove(e: TouchEvent) {
             if(this.options.disabledRefresh || this.scroll.scrollTop > 0 || !this.touching) {
                 return;
             }
@@ -153,7 +154,7 @@
                 this.state = 0;
             }
         }
-        private touchEnd() {
+        public touchEnd() {
             if(this.options.disabledRefresh) {
                 return;
             }
@@ -199,7 +200,7 @@
             this.infiniteLoading = false;
         }
 
-        private onScroll() {
+        public onScroll() {
             if(this.options.disabledInfinite || this.infiniteLoading) {
                 return;
             }

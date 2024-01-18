@@ -1,6 +1,6 @@
 import Popup from "./popup.vue";
 
-Popup.install = function (Vue: Loni.VueConstructor) {
+Popup.install = function (Vue) {
     Vue.component("loni-popup", Popup);
 }
 

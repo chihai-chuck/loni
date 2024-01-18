@@ -7,13 +7,9 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop } from "vue-property-decorator";
+    import { Component, Prop } from "vue-facing-decorator";
 
     import config from "@/config/cell";
-
-    import type CellItem from "../cell-item";
-
-    import { findComponentsDownward } from "@/utils/helper";
 
     @Component({
         name: "LoniCell"
@@ -32,19 +28,13 @@
                 radius: this.radius ?? config.radius
             }
         }
-
-        private mounted() {
-            findComponentsDownward<CellItem>(this, "LoniCellItem").forEach(child => {
-                child.cellInstance = this;
-            });
-        }
     }
 </script>
 
 <style lang="less" scoped>
     .loni-cell {
         width: 100%;
-        &.radius /deep/ .loni-cell-item {
+        &.radius :deep(.loni-cell-item) {
             &:first-child,
             &.spacing + * {
                 border-top-left-radius: 6px;

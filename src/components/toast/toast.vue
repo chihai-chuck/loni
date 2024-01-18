@@ -13,12 +13,13 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop, Watch } from 'vue-property-decorator';
+    import { Component, Prop, Watch } from 'vue-facing-decorator';
 
     import config from "@/config/toast";
 
     @Component({
-        name: "LoniToast"
+        name: "LoniToast",
+        emits: ["close"]
     })
     export default class LoniToast extends Vue {
         /** 消息内容 */
@@ -45,7 +46,7 @@
         @Prop({ type: Boolean, default: undefined })
         public closeOnPopstate?: boolean;
 
-        private visible = false;
+        public visible = false;
 
         public get options() {
             return {

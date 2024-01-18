@@ -51,13 +51,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsHeaderDoc"
     })
     export default class PageComponentsHeaderDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "line",
                 text: '是否显示底部边线（可以通过传入一个色值自定义边线颜色并显示边线，色值格式："R,G,B"）',
@@ -235,7 +235,7 @@
             }
         ];
 
-        private events = [
+        public events = [
             {
                 name: "scroll",
                 text: "页面或区域滚动事件（滚动对象根据传入的scrollObj而定）",
@@ -243,7 +243,7 @@
             }
         ];
 
-        private slots = [
+        public slots = [
             {
                 name: "default",
                 text: "导航栏标题文字或自定义标题"

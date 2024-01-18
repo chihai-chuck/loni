@@ -26,7 +26,7 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop, Watch, Ref } from "vue-property-decorator";
+    import { Component, Prop, Watch, Ref } from "vue-facing-decorator";
 
     import { EventListener } from "@pecasha/util";
 
@@ -55,13 +55,13 @@
             left: 0,
             right: 0
         }
-        private position = {
+        public position = {
             pageX: 0,
             pageY: 0
         }
         private moveLock = "none" // move的锁最好不要跟end的锁共用一个，宁愿多写一些重复代码，避免因冲突引起问题难以排查
         private open = "none";
-        private openStatus = false;
+        public openStatus = false;
 
         private transitionEndListener = {} as EventListener;
 
@@ -94,7 +94,7 @@
             this.transitionEndListener.destroy();
         }
 
-        private handlerTouchstart(event: TouchEvent) {
+        public handlerTouchstart(event: TouchEvent) {
             if (this.disabled || (!this.$slots.left && !this.$slots.right)) {
                 return;
             }
@@ -108,7 +108,7 @@
                 }
             }
         }
-        private handlerTouchmove(event: TouchEvent) {
+        public handlerTouchmove(event: TouchEvent) {
             if (this.disabled || (!this.$slots.left && !this.$slots.right)) {
                 return;
             }
@@ -130,7 +130,7 @@
                 }
             }
         }
-        private handlerTouchend(event: TouchEvent) {
+        public handlerTouchend(event: TouchEvent) {
             if (this.disabled || (!this.$slots.left && !this.$slots.right)) {
                 return;
             }
@@ -176,7 +176,7 @@
             }
         }
 
-        private reset() {
+        public reset() {
             this.position.pageX = 0;
             this.open = "none";
         }

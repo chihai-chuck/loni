@@ -40,14 +40,15 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop, Emit } from "vue-property-decorator";
+    import { Component, Prop, Emit } from "vue-facing-decorator";
 
     import type Cell from "../cell";
 
     import config from "@/config/cell-item";
 
     @Component({
-        name: "LoniCellItem"
+        name: "LoniCellItem",
+        expose: ["cellInstance"]
     })
     export default class LoniCellItem extends Vue {
         /** 是否显示右边icon，默认false */
@@ -125,7 +126,7 @@
             }
         }
 
-        private get spacingFillColor() {
+        public get spacingFillColor() {
             if(typeof this.options.spacingFill === "string") {
                 return this.options.spacingFill;
             }
@@ -133,9 +134,9 @@
         }
 
         @Emit("click")
-        private active() {
+        public active() {
             if(this.next) {
-                this.$router.push(this.next);
+                this.$router?.push(this.next);
             }
         }
     }

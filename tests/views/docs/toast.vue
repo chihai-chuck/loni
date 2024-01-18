@@ -51,13 +51,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsToastDoc"
     })
     export default class PageComponentsToastDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "message",
                 text: "消息内容",
@@ -102,14 +102,14 @@
             }
         ];
 
-        private events = [
+        public events = [
             {
                 name: "close",
                 text: "轻提示框关闭事件"
             }
         ];
 
-        private slots = [
+        public slots = [
             {
                 name: "default",
                 text: "自定义轻提示框内容"

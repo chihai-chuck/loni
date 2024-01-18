@@ -37,13 +37,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsLoadingDoc"
     })
     export default class PageComponentsLoadingDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "fix",
                 text: "是否布满父级区域并使加载图标居中（宽高布满整个最近的position:relative父级元素）",
@@ -116,7 +116,7 @@
             }
         ];
 
-        private slots = [
+        public slots = [
             {
                 name: "default",
                 text: "自定义加载状态动画（使用了此插槽，预设动画将会失效）"

@@ -24,31 +24,31 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component
     export default class PageComponentSwipeout extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/swipeout/doc");
+                    $vue.$router.push("/components/swipeout/doc");
                 }
             }
         ];
 
-        private list = [0, 1, 2];
+        public list = [0, 1, 2];
 
-        private add() {
+        public add() {
             this.$loni.Toast("点击了添加")
         }
-        private info() {
+        public info() {
             this.$loni.Toast("点击了查看")
         }
-        private del() {
+        public del() {
             this.$loni.Toast("点击了删除")
         }
-        private active() {
+        public active() {
             this.$loni.Dialog.alert("点击了列表项");
         }
     }

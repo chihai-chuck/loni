@@ -1,22 +1,22 @@
 <template>
-    <button :type="htmlType"
-            class="loni-button"
-            :class="classes"
-            :style="styles"
-            :disabled="options.disabled"
-            @click.stop="handleClick">
+    <div :type="htmlType"
+         class="loni-button"
+         :class="classes"
+         :style="styles"
+         :disabled="disabled"
+         @click.stop.capture.passive="handleClick">
         <loading size="small"
                  :color="options.color"
                  v-if="isLoading"
                  dis-transition></loading>
         <i class="loni"
            :class="[icon,{loading: isLoading}]"><span :style="{fontSize: options.size}"><slot></slot></span></i>
-    </button>
+    </div>
 </template>
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop, Watch } from "vue-property-decorator";
+    import { Component, Prop, Watch } from "vue-facing-decorator";
     import loading from "../loading";
     import { browserElementComputedStyle } from "@pecasha/util";
 
@@ -26,7 +26,8 @@
         name: "LoniButton",
         components: {
             loading
-        }
+        },
+        emits: ["click"]
     })
     export default class LoniButton extends Vue {
         /** 按钮宽度，默认自适应内容（自定义需要带单位） */
@@ -97,7 +98,7 @@
         @Prop({ type: String, default: "button" })
         public htmlType!: "button" | "submit" | "reset";
 
-        private isLoading = false;
+        public isLoading = false;
         private borderRadius = "";
 
         public get options() {
@@ -109,7 +110,7 @@
                 size: this.size ?? config.size
             }
         }
-        private get styles() {
+        public get styles() {
             const styles: Partial<CSSStyleDeclaration> = {
                 background: this.options.background,
                 border: this.options.border,
@@ -131,9 +132,9 @@
                 styles.textAlign = "center";
                 styles.textIndent = this.spacing;
             }
-            return styles;
+            return styles as AnyObject;
         }
-        private get classes() {
+        public get classes() {
             return {
                 long: this.long,
                 disabled: this.disabled,
@@ -171,7 +172,7 @@
             this.getBorderRadius();
         }
 
-        private handleClick(event: Event) {
+        public handleClick(event: Event) {
             if(this.disabled || this.isLoading) {
                 return;
             }

@@ -35,7 +35,7 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop } from "vue-property-decorator";
+    import { Component, Prop } from "vue-facing-decorator";
 
     import config from "@/config/loading";
 
@@ -99,7 +99,7 @@
 
         public visible = false;
 
-        private get modeVisible() {
+        public get modeVisible() {
             return this.fullScreen ? this.visible : true;
         }
     }

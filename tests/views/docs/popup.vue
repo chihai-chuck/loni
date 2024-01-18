@@ -51,13 +51,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsPopupDoc"
     })
     export default class PageComponentsPopupDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "model-value",
                 text: "显示/隐藏，可通过v-model双向绑定，也可使用value单向控制",
@@ -143,7 +143,7 @@
             }
         ];
 
-        private events = [
+        public events = [
             {
                 name: "maskTrigger",
                 text: "遮罩点击事件",
@@ -151,7 +151,7 @@
             }
         ];
 
-        private slots = [
+        public slots = [
             {
                 name: "default",
                 text: "弹窗内容区域"

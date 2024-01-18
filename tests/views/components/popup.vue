@@ -36,29 +36,29 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component, Ref } from 'vue-property-decorator';
+    import { Vue, Component, Ref } from 'vue-facing-decorator';
 
     @Component
     export default class PageComponentPopup extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/popup/doc");
+                    $vue.$router.push("/components/popup/doc");
                 }
             }
         ];
 
         @Ref() header!: any;
 
-        private visible = false;
-        private boxTopVisible = false;
-        private boxBottomVisible = false;
-        private boxLeftVisible = false;
-        private boxRightVisible = false;
-        private boxBackgroundVisible = false;
+        public visible = false;
+        public boxTopVisible = false;
+        public boxBottomVisible = false;
+        public boxLeftVisible = false;
+        public boxRightVisible = false;
+        public boxBackgroundVisible = false;
 
-        private headerHeight = 0;
+        public headerHeight = 0;
         mounted() {
             this.headerHeight = this.header.$el.offsetHeight;
         }

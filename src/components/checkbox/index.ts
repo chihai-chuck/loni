@@ -1,6 +1,6 @@
 import Checkbox from "./checkbox.vue";
 
-Checkbox.install = function (Vue: Loni.VueConstructor) {
+Checkbox.install = function (Vue) {
     Vue.component("loni-checkbox", Checkbox);
 }
 

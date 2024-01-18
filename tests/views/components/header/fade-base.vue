@@ -6,11 +6,11 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from 'vue-property-decorator';
+    import { Vue, Component } from 'vue-facing-decorator';
 
     @Component
     export default class PageComponentHeaderFadeBase extends Vue {
-        private headerFade = ["base"];
+        public headerFade = ["base"];
     }
 </script>
 

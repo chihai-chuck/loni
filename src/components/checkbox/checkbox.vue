@@ -15,7 +15,7 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop } from "vue-property-decorator";
+    import { Component, Prop } from "vue-facing-decorator";
 
     import { colorHexToRgb, colorLighten } from "@pecasha/util";
 
@@ -24,7 +24,8 @@
     import config from "@/config/checkbox";
 
     @Component({
-        name: "LoniCheckbox"
+        name: "LoniCheckbox",
+        expose: ["checkboxGroupInstance", "checked"]
     })
     export default class LoniCheckbox extends Vue {
         /** 复选框选中状态 */
@@ -97,42 +98,42 @@
             }
         }
 
-        private get disabledValue() {
+        public get disabledValue() {
             if(this.checkboxGroupInstance) {
                 return this.disabled || this.checkboxGroupInstance.disabled;
             }
             return this.disabled;
         }
 
-        private get _uncheckIcon() {
+        public get _uncheckIcon() {
             if(this.options.checkedIcon !== "icon-loni-checked-circular" && !(this.uncheckIcon ?? this.checkboxGroup.uncheckIcon)) {
                 return this.options.checkedIcon;
             }
             return this.options.uncheckIcon || "icon-loni-check-circular";
         }
 
-        private get textColor() {
+        public get textColor() {
             if(this.disabledValue) {
                 return colorLighten(colorHexToRgb(this.options.color), .5, true);
             }
             return this.options.color;
         }
 
-        private get _uncheckColor() {
+        public get _uncheckColor() {
             if(this.disabledValue) {
                 return colorLighten(colorHexToRgb(this.options.uncheckColor), .5, true);
             }
             return this.options.uncheckColor;
         }
 
-        private get _checkedColor() {
+        public get _checkedColor() {
             if(this.disabledValue) {
                 return colorLighten(colorHexToRgb(this.options.checkedColor), .5, true);
             }
             return this.options.checkedColor;
         }
 
-        private change() {
+        public change() {
             this.$emit("click");
             if(this.disabledValue) {
                 return;

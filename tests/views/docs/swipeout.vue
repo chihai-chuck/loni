@@ -37,13 +37,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsSwipeoutDoc"
     })
     export default class PageComponentsSwipeoutDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "disabled",
                 text: "是否禁用",
@@ -53,7 +53,7 @@
             }
         ];
 
-        private slots = [
+        public slots = [
             {
                 name: "default",
                 text: "内容区域"

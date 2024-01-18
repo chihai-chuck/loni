@@ -39,23 +39,22 @@
 </template>
 
 <script lang="tsx">
-    import { Vue, Component } from 'vue-property-decorator';
-    import type { CreateElement } from "vue";
+    import { Vue, Component } from 'vue-facing-decorator';
 
     @Component
     export default class PageComponentLoading extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/loading/doc");
+                    $vue.$router.push("/components/loading/doc");
                 }
             }
         ];
 
-        private loading = true;
+        public loading = true;
 
-        private showLoading() {
+        public showLoading() {
             this.$loni.Loading.show({
                 background: "#fff"
             });
@@ -66,12 +65,12 @@
 
         private num = 3;
         private timer = 0;
-        private showLoadingCustom() {
+        public showLoadingCustom() {
             clearInterval(this.timer);
             this.num = 3;
             this.$loni.Loading.show({
                 background: "#fff",
-                render: (h: CreateElement) => <p>加载中... {this.num}s</p>
+                render: () => <p>加载中... {this.num}s</p>
             });
             this.timer = window.setInterval(() => {
                 this.num--;
@@ -82,7 +81,7 @@
             }, 1000);
         }
 
-        private showLoadingCover() {
+        public showLoadingCover() {
             this.$loni.Loading.show({
                 cover: true,
                 color: "#fff"

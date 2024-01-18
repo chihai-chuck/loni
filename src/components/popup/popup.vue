@@ -5,7 +5,7 @@
                  zIndex: options.zIndex,
                  top: options.top
              }"
-             v-show="value">
+             v-show="visible">
             <div class="background"
                  :style="{background:options.background}"></div>
             <div ref="popupContent"
@@ -23,17 +23,18 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop, Watch, Ref, VModel } from "vue-property-decorator";
+    import { Component, Prop, Watch, Ref, Model } from "vue-facing-decorator";
 
     import config from "@/config/popup";
 
     @Component({
-        name: "LoniPopup"
+        name: "LoniPopup",
+        emits: ["maskTrigger"]
     })
     export default class LoniPopup extends Vue {
         /** 弹出层是否可见 */
-        @VModel({ type: Boolean, required: true })
-        private visible!: boolean;
+        @Model({ type: Boolean, required: true })
+        public visible!: boolean;
 
         /** 弹出层内容是否居中（以弹出层背景为区域） */
         @Prop({ type: Boolean, default: undefined })

@@ -1,5 +1,5 @@
 <template>
-    <popup v-model="visibleTrans"
+    <popup v-model="visible"
            :close-on-click-overlay="options.closeOnClickOverlay"
            :close-on-popstate="options.closeOnPopstate"
            z-index="1899"
@@ -41,7 +41,7 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop, Emit, Watch, VModel } from "vue-property-decorator";
+    import { Component, Prop, Emit, Model } from "vue-facing-decorator";
 
     import config from "@/config/dialog";
 
@@ -55,8 +55,8 @@
     })
     export default class LoniDialog extends Vue {
         /** 消息弹窗是否可见 */
-        @VModel({ type: Boolean, required: true })
-        private visibleValue!: boolean;
+        @Model({ type: Boolean, required: true })
+        public visible!: boolean;
 
         /** 标题 */
         @Prop()
@@ -102,15 +102,6 @@
         @Prop({ type: Boolean, default: undefined })
         public eventOnce?: boolean;
 
-        public visible = false;
-        private get visibleTrans() {
-            return this.visible;
-        }
-        private set visibleTrans(value) {
-            this.$emit("input", value);
-            this.visible = this.visibleValue;
-        }
-
         public get options() {
             return {
                 title: this.title ?? config.title,
@@ -125,19 +116,14 @@
             }
         }
 
-        @Watch("visibleValue")
-        private onVisibleChanged() {
-            this.visibleTrans = this.visibleValue;
+        @Emit()
+        public confirm() {
+            this.visible = false;
         }
 
         @Emit()
-        private confirm() {
-            this.visibleTrans = false;
-        }
-
-        @Emit()
-        private cancel() {
-            this.visibleTrans = false;
+        public cancel() {
+            this.visible = false;
         }
     }
 </script>
@@ -173,7 +159,7 @@
             text-align: center;
             font-size: 14px;
             color: #777;
-            /deep/ img {
+            :deep(img) {
                 max-width: 100%;
             }
         }

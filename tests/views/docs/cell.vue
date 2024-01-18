@@ -87,13 +87,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsCellDoc"
     })
     export default class PageComponentsCellDoc extends Vue {
-        private cellParams = [
+        public cellParams = [
             {
                 name: "radius",
                 text: "圆角边框",
@@ -109,7 +109,7 @@
                 default: '"auto"'
             }
         ];
-        private cellItemParams = [
+        public cellItemParams = [
             {
                 name: "nextIcon",
                 text: "是否显示右侧箭头图标",
@@ -217,21 +217,21 @@
             }
         ];
 
-        private cellSlots = [
+        public cellSlots = [
             {
                 name: "default",
                 text: "cell-item列表子项（理论上可以放置别的组件或标签，但是需要自行做兼容，并且会影响到cell-item的一些父级属性读取）"
             }
         ];
 
-        private cellItemEvents = [
+        public cellItemEvents = [
             {
                 name: "click",
                 text: "列表项点击事件"
             }
         ];
 
-        private cellItemSlots = [
+        public cellItemSlots = [
             {
                 name: "default",
                 text: "列表项显示值（右侧显示文本）"

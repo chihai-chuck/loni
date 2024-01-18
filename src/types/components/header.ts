@@ -7,7 +7,7 @@ declare namespace Loni {
                 size?: string;
                 style?: any;
                 active?: Function;
-                render?: Function;
+                render?: import("vue").RootRenderFunction;
             }
         }
     }

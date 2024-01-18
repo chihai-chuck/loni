@@ -87,13 +87,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsCheckboxDoc"
     })
     export default class PageComponentsCheckboxDoc extends Vue {
-        private checkboxParams = [
+        public checkboxParams = [
             {
                 name: "model-value",
                 text: "复选框选中状态，可通过v-model双向绑定，也可使用value单向控制",
@@ -163,7 +163,7 @@
                 default: "null"
             }
         ];
-        private checkboxEvents = [
+        public checkboxEvents = [
             {
                 name: "click",
                 text: "点击事件（每次复选框被点击都会触发）"
@@ -174,14 +174,14 @@
                 params: "[boolean]切换后的状态"
             }
         ];
-        private checkboxSlots = [
+        public checkboxSlots = [
             {
                 name: "default",
                 text: "复选框图标右侧文字内容或自定义内容"
             }
         ];
 
-        private checkboxGroupParams = [
+        public checkboxGroupParams = [
             {
                 name: "model-value",
                 text: "分组复选框选中状态，可通过v-model双向绑定，也可使用value单向控制",
@@ -253,7 +253,7 @@
                 default: "false"
             }
         ];
-        private checkboxGroupSlots = [
+        public checkboxGroupSlots = [
             {
                 name: "default",
                 text: "checkbox复选框列表（不可放置其它标签，否则会引起绑定状态错误）"

@@ -14,23 +14,23 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from 'vue-property-decorator';
+    import { Vue, Component } from 'vue-facing-decorator';
 
     import { arrayInitRange } from "@pecasha/util";
 
     @Component
     export default class PageComponentScroll extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/scroll/doc");
+                    $vue.$router.push("/components/scroll/doc");
                 }
             }
         ];
 
-        private list: number[] = [];
-        private page = {
+        public list: number[] = [];
+        public page = {
             index: 1,
             size: 20,
             end: false
@@ -44,7 +44,7 @@
             this.list = arrayInitRange(this.page.size, 0);
         }
 
-        private listRefresh(done: Function) {
+        public listRefresh(done: Function) {
             setTimeout(() => {
                 this.page.index = 1;
                 this.page.end = false;
@@ -53,7 +53,7 @@
             }, 2000);
         }
 
-        private listInfinite(done: Function) {
+        public listInfinite(done: Function) {
             this.page.index++;
 
             setTimeout(() => {

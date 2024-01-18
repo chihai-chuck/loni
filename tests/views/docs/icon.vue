@@ -51,13 +51,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsIconDoc"
     })
     export default class PageComponentsIconDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "name",
                 text: "图标名称",
@@ -94,7 +94,7 @@
             }
         ];
 
-        private events = [
+        public events = [
             {
                 name: "click",
                 text: "图标点击事件",
@@ -102,7 +102,7 @@
             }
         ];
 
-        private slots = [
+        public slots = [
             {
                 name: "default",
                 text: "图标右侧文字"

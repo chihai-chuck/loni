@@ -1,16 +1,18 @@
 <template>
     <div class="app-wrapper"
          :class="{pc:!mobileMode}">
-        <keep-alive :include="includePage">
-            <router-view></router-view>
-        </keep-alive>
+        <router-view v-slot="{ Component }">
+            <keep-alive>
+                <component :is="Component" />
+            </keep-alive>
+        </router-view>
     </div>
 </template>
 
 <script lang="ts">
     import "./assets/fonts/iconfont.js";
 
-    import { Vue, Component, Watch } from 'vue-property-decorator';
+    import { Vue, Component, Watch } from 'vue-facing-decorator';
 
     import { browserVersion } from "@pecasha/util";
 
@@ -18,11 +20,7 @@
         name: "App"
     })
     export default class App extends Vue {
-        private includePage = [
-
-        ].join(",");
-
-        private mobileMode = false;
+        public mobileMode = false;
 
         created() {
             this.mobileMode = browserVersion().mobile;
@@ -40,7 +38,7 @@
         @Watch("$route.path")
         setConsoleDebugVariable() {
             setTimeout(() => {
-                (window as any)["vv"] = (this as any).$router.currentRoute.matched[0]?.instances.default;
+                (window as any)["vv"] = this.$router.currentRoute.value.matched[0]?.instances.default;
             }, 100);
         }
     }
@@ -48,13 +46,16 @@
 
 <style lang="less" src="./styles/default.less"/>
 <style lang="less">
+    #app {
+        .align(center);
+        width: 100%;
+        height: 100%;
+    }
     .app-wrapper {
-        //-webkit-overflow-scrolling: touch;
-        margin: 0 auto;
         background-color: #ededed;
         &.pc {
             .shadow(0, 0, 10px, rgba(0,0,0,.3));
-            width: 750px;
+            width: 720px;
             height: 1300px;
             border-radius: 15px;
             overflow-x: hidden;

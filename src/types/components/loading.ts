@@ -31,7 +31,7 @@ declare namespace Loni {
                 /** 不显示过渡动画 */
                 disTransition?: boolean;
                 /** 动态渲染函数 */
-                render?: (h: import("vue").CreateElement) => JSX.Element;
+                render?: import("vue").RootRenderFunction;
                 /** 显示遮罩（全屏显示时有效） */
                 cover?: boolean;
             }

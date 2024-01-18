@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 class Global {
     /* 预初始化 */
     init() {
@@ -16,21 +14,15 @@ class Global {
     }
 }
 
-declare module "vue/types/vue" {
-    interface Vue {
+declare module "vue" {
+    interface ComponentCustomProperties {
         $global: Global;
     }
 }
 
-declare module "vue/types/options" {
-    interface ComponentOptions<V extends Loni.Vue> {
-        global?: Global;
+export default {
+    global: new Global(),
+    install(app: import("vue").App) {
+        app.config.globalProperties.$global = this.global;
     }
 }
-
-export default {
-    Global,
-    install(Vue: Loni.VueConstructor) {
-        Vue.prototype.$global = new Global();
-    }
-};

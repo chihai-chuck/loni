@@ -21,12 +21,13 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop } from "vue-property-decorator";
+    import { Component, Prop } from "vue-facing-decorator";
 
     import config from "@/config/icon";
 
     @Component({
-        name: "LoniIcon"
+        name: "LoniIcon",
+        emits: ["click"]
     })
     export default class LoniIcon extends Vue {
         /** 图标名称 */

@@ -1,12 +1,23 @@
 {
     "name": "loni-ui",
     "version": "1.0.0",
+    "private": true,
+    "type": "module",
     "description": "忍冬 - 基于Vue的移动端通用UI组件库",
     "author": "pecasha<chihai@pecasha.com>",
     "homepage": "https://loni.pecasha.com",
     "license": "GPL-3.0-or-later",
-    "main": "lib/loni.common.js",
-    "typings": "types/index.d.ts",
+    "main": "./lib/loni.cjs",
+    "module": "./lib/loni.mjs",
+    "esnext": "./lib/loni.mjs",
+    "typings": "./types/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./lib/loni.mjs",
+            "require": "./lib/loni.cjs",
+            "types": "./types/index.d.ts"
+        }
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/pecasha/loni.git"
@@ -20,50 +31,36 @@
         "src/types"
     ],
     "scripts": {
-        "serve": "vue-cli-service serve --copy",
-        "build": "vue-cli-service build --target lib --name loni --dest lib ./src/main.ts",
-        "lint": "vue-cli-service lint",
-        "dist": "vue-cli-service build --modern ./tests/main.ts",
+        "dev": "vite",
+        "build": "vue-tsc && vite build",
+        "preview": "vite preview",
         "up": "pnpm update -i --latest",
         "iconfont": "pdk-base64-iconfont -f ./development/iconfont/download.zip -s ./src/styles/fonts/iconloni.less -n iconloni -d",
         "publ": "pdk-npm-publish & npm publ"
     },
     "dependencies": {
-        "@pecasha/util": "^2.1.0",
-        "core-js": "^3.35.0",
-        "vue-fragment": "^1.6.0"
+        "@pecasha/util": "^2.1.0"
     },
     "peerDependencies": {
-        "@pecasha/util": "^2.0.1",
-        "vue": "^2.6.14",
-        "vue-class-component": "^7.2.3",
-        "vue-property-decorator": "^9.1.2"
+        "@pecasha/util": "^2.1.0",
+        "vue": "^3.4.14",
+        "vue-facing-decorator": "^3.0.4"
     },
     "devDependencies": {
-        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-        "@babel/plugin-syntax-jsx": "^7.23.3",
+        "@babel/plugin-proposal-decorators": "^7.23.7",
         "@pecasha/devkit": "^1.0.2",
-        "@types/node": "^20.11.2",
-        "@vue/babel-plugin-transform-vue-jsx": "^1.4.0",
-        "@vue/babel-sugar-functional-vue": "^1.4.0",
-        "@vue/babel-sugar-inject-h": "^1.4.0",
-        "@vue/babel-sugar-v-model": "^1.4.0",
-        "@vue/babel-sugar-v-on": "^1.4.0",
-        "@vue/cli-plugin-babel": "^5.0.8",
-        "@vue/cli-plugin-router": "^5.0.8",
-        "@vue/cli-plugin-typescript": "^5.0.8",
-        "@vue/cli-service": "^5.0.8",
+        "@types/node": "^20.11.5",
+        "@vitejs/plugin-vue": "^5.0.3",
+        "@vitejs/plugin-vue-jsx": "^3.1.0",
         "less": "^4.2.0",
-        "less-loader": "^7.3.0",
-        "lint-staged": "^15.2.0",
+        "less-loader": "^12.0.0",
         "postcss-pxtorem": "^6.0.0",
-        "sass-resources-loader": "^2.2.5",
         "tslib": "^2.6.2",
         "typescript": "^5.3.3",
-        "vue": "^2.7.14",
-        "vue-class-component": "^7.2.6",
-        "vue-property-decorator": "^9.1.2",
-        "vue-router": "^3.5.3",
-        "vue-template-compiler": "^2.7.14"
+        "vite": "^5.0.11",
+        "vue": "^3.4.14",
+        "vue-facing-decorator": "^3.0.4",
+        "vue-router": "^4.2.5",
+        "vue-tsc": "^1.8.27"
     }
 }

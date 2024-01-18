@@ -1,7 +1,8 @@
 declare namespace Loni {
-    type Vue = import("vue-property-decorator").Vue;
-    type VueConstructor = Vue.VueConstructor;
-    type VNode = Vue.VNode;
+    type Vue = InstanceType<import("vue-facing-decorator").VueCons>;
+    type VueConstructor = import("vue-facing-decorator").VueCons;
+    type App = import("vue").App;
+    type VNode = import("vue").VNode;
 
     interface AnyObject {
         [key: string]: any;
@@ -9,5 +10,6 @@ declare namespace Loni {
 }
 
 interface LoniComponent extends Loni.VueConstructor {
-    install: (Vue: Loni.VueConstructor) => void;
+    install: (Vue: Loni.App) => void;
+    $router?: import("vue-router").Router;
 }

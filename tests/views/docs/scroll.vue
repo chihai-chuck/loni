@@ -51,13 +51,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsScrollDoc"
     })
     export default class PageComponentsScrollDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "disabledInfinite",
                 text: "禁用加载更多功能",
@@ -130,7 +130,7 @@
             }
         ];
 
-        private events = [
+        public events = [
             {
                 name: "refresh",
                 text: "下拉刷新事件",
@@ -148,7 +148,7 @@
             }
         ];
 
-        private slots = [
+        public slots = [
             {
                 name: "default",
                 text: "内容区域"

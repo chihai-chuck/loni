@@ -22,36 +22,35 @@
 </template>
 
 <script lang="tsx">
-    import { Vue, Component } from "vue-property-decorator";
-    import { CreateElement } from "vue";
+    import { Vue, Component } from "vue-facing-decorator";
 
     import { dateFormat } from "@pecasha/util";
 
     @Component
     export default class PageComponentDialog extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/dialog/doc");
+                    $vue.$router.push("/components/dialog/doc");
                 }
             }
         ];
 
-        private inlineVisible = false;
-        private customVisible = false;
+        public inlineVisible = false;
+        public customVisible = false;
 
         private timer = 0;
         private time = new Date();
 
-        private show() {
+        public show() {
             this.$loni.Dialog.alert({
                 title: "提示",
                 message: "这是一个很简单的提示"
             });
         }
 
-        private async confirm() {
+        public async confirm() {
             const action = await this.$loni.Dialog.confirm({
                 title: "提示",
                 message: "这是一个很复杂的选择"
@@ -59,14 +58,14 @@
             this.$loni.Dialog.alert(`点击了按钮：${action}`);
         }
 
-        private async renderShow() {
+        public async renderShow() {
             this.time = new Date();
             this.timer = window.setInterval(() => {
                 this.time = new Date();
             }, 1000);
             await this.$loni.Dialog.alert({
                 title: "提示",
-                render: (h: CreateElement) => <p>当前时间：{dateFormat(this.time)}</p>
+                render: () => <p>当前时间：{dateFormat(this.time)}</p>
             });
             clearInterval(this.timer);
         }

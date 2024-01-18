@@ -33,22 +33,22 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from 'vue-property-decorator';
+    import { Vue, Component } from 'vue-facing-decorator';
 
     @Component
     export default class PageComponentCheckbox extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/checkbox/doc");
+                    $vue.$router.push("/components/checkbox/doc");
                 }
             }
         ];
 
-        private checkbox = false;
+        public checkbox = false;
 
-        private checkboxGroup = ["a", "b"];
+        public checkboxGroup = ["a", "b"];
     }
 </script>
 

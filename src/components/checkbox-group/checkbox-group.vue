@@ -7,11 +7,9 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import { Component, Prop, Watch } from 'vue-property-decorator';
+    import { Component, Prop, Watch } from 'vue-facing-decorator';
 
     import type Checkbox from "../checkbox";
-
-    import { findComponentsDownward } from "@/utils/helper";
 
     @Component({
         name: "LoniCheckboxGroup"
@@ -59,7 +57,7 @@
         private children: Checkbox[] = [];
 
         private mounted() {
-            this.children = findComponentsDownward<Checkbox>(this, "LoniCheckbox");
+            // this.children = findComponentsDownward<Checkbox>(this, "LoniCheckbox");
             this.children.forEach(child => {
                 child.checkboxGroupInstance = this;
             });

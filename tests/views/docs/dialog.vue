@@ -51,13 +51,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsDialogDoc"
     })
     export default class PageComponentsDialogDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "model-value",
                 text: "模态弹窗显示状态，可通过v-model双向绑定，也可使用value单向控制",
@@ -143,7 +143,7 @@
             }
         ];
 
-        private events = [
+        public events = [
             {
                 name: "confirm",
                 text: "模态弹窗确认按钮点击事件"
@@ -154,7 +154,7 @@
             }
         ];
 
-        private slots = [
+        public slots = [
             {
                 name: "default",
                 text: "消息内容文本或自定义的消息内容区域"

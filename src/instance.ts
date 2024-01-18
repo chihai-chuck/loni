@@ -7,14 +7,8 @@ interface LoniInstance {
 const loni = {} as LoniInstance;
 export default loni;
 
-declare module "vue/types/vue" {
-    interface Vue {
+declare module "vue" {
+    interface ComponentCustomProperties {
         $loni: typeof loni;
-    }
-}
-
-declare module "vue/types/options" {
-    interface ComponentOptions<V extends Loni.Vue> {
-        loni?: typeof loni;
     }
 }

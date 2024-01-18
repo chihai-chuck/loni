@@ -1,6 +1,6 @@
 import Icon from './icon.vue';
 
-Icon.install = function (Vue: Loni.VueConstructor) {
+Icon.install = function (Vue) {
     Vue.component("loni-icon", Icon);
 }
 

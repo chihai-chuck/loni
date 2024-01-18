@@ -3,11 +3,11 @@
          :class="{disabled, active}"
          :style="{
              fontSize: options.size,
-             backgroundColor: value?options.activeColor:options.inactiveColor
+             backgroundColor: active?options.activeColor:options.inactiveColor
          }"
          @click="change">
         <p>
-            <span :style="{color:value?options.activeColor:'#ccc'}"
+            <span :style="{color:active?options.activeColor:'#ccc'}"
                   v-if="isLoading">
                 <svg viewBox="25 25 50 50"
                      class="loni-switch-loading-circular">
@@ -20,21 +20,17 @@
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import {
-        Component,
-        Prop,
-        VModel,
-        Watch
-    } from "vue-property-decorator";
+    import { Component, Prop, Model, Watch } from "vue-facing-decorator";
 
     import config from "@/config/switch";
 
     @Component({
-        name: "LoniSwitch"
+        name: "LoniSwitch",
+        emits: ["click", "change"]
     })
     export default class LoniSwitch extends Vue {
-        @VModel({ type: Boolean, required: true })
-        private active!: boolean;
+        @Model({ type: Boolean, required: true })
+        public active!: boolean;
 
         @Prop()
         public size?: string;
@@ -54,7 +50,7 @@
         @Prop({ type: Boolean, default: false })
         public async!: boolean;
 
-        private isLoading = false;
+        public isLoading = false;
 
         public get options() {
             return {
@@ -73,7 +69,7 @@
             this.isLoading = this.loading;
         }
 
-        private change() {
+        public change() {
             this.$emit("click");
             if(this.disabled || this.isLoading) {
                 return;

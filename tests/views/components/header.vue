@@ -59,21 +59,20 @@
 </template>
 
 <script lang="tsx">
-    import { Vue, Component } from 'vue-property-decorator';
-    import type { CreateElement } from "vue";
+    import { Vue, Component } from 'vue-facing-decorator';
 
     @Component
     export default class PageComponentHeader extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/header/doc");
+                    $vue.$router.push("/components/header/doc");
                 }
             }
         ];
 
-        private demoHeaderIcon = [
+        public demoHeaderIcon = [
             {
                 caption: "设置"
             },
@@ -85,19 +84,19 @@
             }
         ];
 
-        private demoHeaderRenderIcon = [
+        public demoHeaderRenderIcon = [
             {
-                render: (h: CreateElement) => <loni-loading></loni-loading>
+                render: () => <loni-loading></loni-loading>
             }
         ];
 
-        private searchText = "";
+        public searchText = "";
 
-        private backHandler() {
+        public backHandler() {
             alert("自定义返回事件")
         }
 
-        private searchActive() {
+        public searchActive() {
             alert("搜索内容：" + this.searchText);
         }
     }

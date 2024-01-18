@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import "../src/types";
 
 interface Loni {
@@ -14,13 +13,8 @@ interface Loni {
     Toast: (options: Loni.Component.Toast.Options | string) => Promise<Loni.Component.Toast>;
 }
 
-declare module "vue/types/vue" {
-    interface Vue {
+declare module "vue" {
+    interface ComponentCustomProperties {
         $loni: Loni;
-    }
-}
-declare module "vue/types/options" {
-    interface ComponentOptions<V extends Vue> {
-        loni?: Loni;
     }
 }

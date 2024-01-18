@@ -41,7 +41,7 @@ loni.Loading = Loading as Loni.Component.Loading.Instance;
 loni.Dialog = Dialog as Loni.Component.Dialog.Instance;
 loni.Toast = Toast.instance;
 
-const install: any = function (Vue: Loni.VueConstructor) {
+const install: any = function (Vue: Loni.App) {
     if(install.installed) return;
 
     for(let componentName of Object.keys(components)) {
@@ -49,7 +49,7 @@ const install: any = function (Vue: Loni.VueConstructor) {
     }
 
     // 这边只有通过完全引入才会执行，按需引入的是在组件index导出中的install中执行，所以有方法或属性需要挂载到$loni暴露的，还需要在组件index的install中再赋值一次
-    Vue.prototype.$loni = loni;
+    Vue.config.globalProperties.$loni = loni;
 }
 
 if(typeof window !== "undefined" && (window as any).Vue) {

@@ -1,6 +1,6 @@
 import CheckboxGroup from "./checkbox-group.vue";
 
-CheckboxGroup.install = function (Vue: Loni.VueConstructor) {
+CheckboxGroup.install = function (Vue) {
     Vue.component(CheckboxGroup.name, CheckboxGroup);
 }
 

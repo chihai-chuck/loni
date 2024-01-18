@@ -1,87 +1,80 @@
 <template>
-    <fragment>
-        <p class="loni-header-filling"
-           :style="{paddingTop: options.statusbarHeight}"
-           v-if="options.filling"></p>
-        <div class="loni-header"
-             :class="{
+    <p class="loni-header-filling"
+       :style="{paddingTop: options.statusbarHeight}"
+       v-if="options.filling"></p>
+    <div class="loni-header"
+         :class="{
                  spacing: options.spacing,
                  transparent: options.transparent,
                  'pointer-none': headerPointerNone,
                  'event-penetrate': eventPenetrate
              }"
-             :style="styleMerge({
+         :style="styleMerge({
                  color: fontColor,
                  position: options.position,
                  zIndex: options.zIndex,
                  paddingTop: options.statusbarHeight,
                  borderBottom: lineStyle
              }, scrollFadeOpacity)"
-             ref="headerRef"
-             v-if="options.visible">
-            <div class="container"
-                 :class="{'text-shadow': options.textShadow}">
-                <div class="control">
-                    <i class="home icon-loni-home"
-                       @click="gotoHome"
-                       v-if="home||$route.query.home">{{options.homeText}}</i>
-                    <i class="back icon-loni-arrow-left"
-                       :class="{cover: config.icon.back.cover}"
-                       @click="gotoBack"
-                       v-else-if="back">{{backText}}</i>
-                    <div class="icon left">
-                        <i v-for="icon in iconSub"
-                           class="loni"
-                           :class="[icon.icon,{caption:icon.caption}]"
-                           @click="icon.active&&icon.active()"
-                           :style="styleMerge({fontSize: icon.size}, icon.style||{})">
-                            {{icon.caption}}
-                            <header-icon-expand :render="icon.render"
-                                                v-if="icon.render"></header-icon-expand>
-                        </i>
-                    </div>
-                    <div class="full-content"
-                         :style="slotStyles"
-                         v-if="slotFull">
-                        <slot></slot>
-                    </div>
-                    <div class="fill"
-                         v-else></div>
-                    <div class="icon right">
-                        <i v-for="icon in icon"
-                           class="loni"
-                           :class="[icon.icon,{caption: icon.caption}]"
-                           @click="icon.active&&icon.active()"
-                           :style="styleMerge({fontSize: icon.size}, icon.style||{})">
-                            {{icon.caption}}
-                            <header-icon-expand :render="icon.render"
-                                                v-if="icon.render"></header-icon-expand>
-                        </i>
-                    </div>
+         ref="headerRef"
+         v-if="options.visible">
+        <div class="container"
+             :class="{'text-shadow': options.textShadow}">
+            <div class="control">
+                <i class="home icon-loni-home"
+                   @click="gotoHome"
+                   v-if="home||$route.query.home">{{options.homeText}}</i>
+                <i class="back icon-loni-arrow-left"
+                   :class="{cover: config.icon.back.cover}"
+                   @click="gotoBack"
+                   v-else-if="back">{{backText}}</i>
+                <div class="icon left">
+                    <i v-for="icon in iconSub"
+                       class="loni"
+                       :class="[icon.icon,{caption:icon.caption}]"
+                       @click="icon.active?.()"
+                       :style="styleMerge({fontSize: icon.size}, icon.style||{})">
+                        {{icon.caption}}
+                        <header-icon-expand :render="icon.render"
+                                            v-if="icon.render"></header-icon-expand>
+                    </i>
                 </div>
-                <div class="content"
-                     v-if="!slotFull">
-                    <div :style="slotStyles">
-                        <slot></slot>
-                    </div>
+                <div class="full-content"
+                     :style="slotStyles"
+                     v-if="slotFull">
+                    <slot></slot>
+                </div>
+                <div class="fill"
+                     v-else></div>
+                <div class="icon right">
+                    <i v-for="i in icon"
+                       class="loni"
+                       :class="[i.icon,{caption: i.caption}]"
+                       @click="i.active?.()"
+                       :style="styleMerge({fontSize: i.size}, i.style||{})">
+                        {{i.caption}}
+                        <header-icon-expand :render="i.render"
+                                            v-if="i.render"></header-icon-expand>
+                    </i>
+                </div>
+            </div>
+            <div class="content"
+                 v-if="!slotFull">
+                <div :style="slotStyles">
+                    <slot></slot>
                 </div>
             </div>
         </div>
-    </fragment>
+    </div>
 </template>
 
 <script lang="ts">
     import Vue from "@/shim-vue";
-    import type { CreateElement } from "vue";
-
-    import Fragment from "vue-fragment";
-
-    import { Component, Prop, Watch, Ref } from "vue-property-decorator";
+    import { Component, Prop, Watch, Ref } from "vue-facing-decorator";
     import { colorGradient } from "@pecasha/util";
+    import type Scroll from "../scroll";
 
     import config from "@/config/header";
-
-    Vue.use(Fragment.Plugin);
 
     @Component({
         name: "LoniHeader",
@@ -95,9 +88,10 @@
                         default: void 0
                     }
                 },
-                render: (h?: CreateElement, ctx?: any) => ctx.props.render(h, ctx.props)
+                render: (vnode: Loni.VNode) => vnode.props?.render
             }
-        }
+        },
+        emits: ["scroll"]
     })
     export default class LoniHeader extends Vue {
         /** 是否显示底部边线 */
@@ -178,7 +172,7 @@
 
         /** scrollObj 若开启了fade，则需传入该值，例如是使用scroll组件控制页面滚动，则需要传入scroll的元素DOM对象，如果需要监听页面滚动，则直接传入字符串"page" */
         @Prop({ type: [Object, HTMLElement, String] })
-        public scrollObj?: Vue | HTMLElement | "page";
+        public scrollObj?: Loni.Vue | HTMLElement | "page";
 
         /**
          * 滚动渐变类型，多种类型按数组传入（字符串传入不支持带参数），（所有模式有需要参入额外参数值的通过数组方式第二个值传入，例["base", ["color", "51,51,51"]]）
@@ -259,7 +253,7 @@
             "colorGradient",
             "line"
         ];
-        private config = {
+        public config = {
             icon: {
                 back: {
                     cover: false
@@ -272,10 +266,10 @@
                 if(this.scrollObj === "page") {
                     return document;
                 }
-                if((<Vue>this.scrollObj)?.$options?.name === "LoniScroll") {
-                    return (<any>this.scrollObj).scroll;
+                if((<Loni.Vue>this.scrollObj)?.$options?.name === "LoniScroll") {
+                    return (<Scroll>this.scrollObj).scroll;
                 }
-                return (<Vue>this.scrollObj).$el || this.scrollObj;
+                return (<Loni.Vue>this.scrollObj).$el || this.scrollObj;
             }
             return void 0;
         }
@@ -299,7 +293,7 @@
             return {};
         }
 
-        private get scrollFadeOpacity() {
+        public get scrollFadeOpacity() {
             return this.fadeMode.base ? {
                 opacity: this.backgroundOpacity
             } : {
@@ -307,11 +301,11 @@
             }
         }
 
-        private get fontColor() {
+        public get fontColor() {
             return this.fadeMode.color ? `rgba(${this.fadeMode.color},${this.colorOpacity}) !important` : `rgb(${this.headerColor}) !important`;
         }
 
-        private get lineStyle() {
+        public get lineStyle() {
             if(this.options.line) {
                 const color = typeof this.options.line === "string" ? this.options.line : "238,238,238";
                 return this.fadeMode.line ? `1px solid rgba(${color},${this.lineOpacity})` : `1px solid rgb(${color})`;
@@ -319,14 +313,14 @@
             return "none";
         }
 
-        private get slotStyles() {
+        public get slotStyles() {
             return {
                 opacity: this.fadeMode.slot ? this.slotOpacity : 1,
                 color: this.fadeMode.slotColor ? `rgba(${this.fadeMode.slotColor},${this.slotOpacity})` : ""
             }
         }
 
-        private get headerPointerNone() {
+        public get headerPointerNone() {
             return this.colorOpacity < .2 || (this.backgroundOpacity < .2 && !this.fadeMode.background);
         }
 
@@ -359,17 +353,17 @@
                 this.options.backHandler(this.options.backPath);
             } else {
                 if(this.options.backPath) {
-                    this.$router.replace(this.options.backPath);
+                    this.$router?.replace(this.options.backPath);
                 } else {
-                    this.$router.back();
+                    this.$router?.back();
                 }
             }
         }
         public gotoHome() {
-            this.$router.push(this.options.homePath || "/");
+            this.$router?.push(this.options.homePath || "/");
         }
 
-        private styleMerge(obj: Loni.AnyObject, arr: Loni.AnyObject) {
+        public styleMerge(obj: Loni.AnyObject, arr: Loni.AnyObject) {
             return [obj, ...[arr || []]];
         }
 

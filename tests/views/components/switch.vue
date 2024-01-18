@@ -39,25 +39,25 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     import { sleep } from "@pecasha/util";
 
     @Component
     export default class PageComponentSwitch extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/switch/doc");
+                    $vue.$router.push("/components/switch/doc");
                 }
             }
         ];
 
-        private checked = true;
-        private checkedAsync = false;
+        public checked = true;
+        public checkedAsync = false;
 
-        private async changeAsync(callback: (status:boolean) => void) {
+        public async changeAsync(callback: (status:boolean) => void) {
             let action = true;
             try {
                 await this.$loni.Dialog.confirm("是否切换？");

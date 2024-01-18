@@ -1,6 +1,6 @@
 import Header from './header.vue';
 
-Header.install = function (Vue: Loni.VueConstructor) {
+Header.install = function (Vue) {
     Vue.component("loni-header", Header);
 }
 

@@ -41,13 +41,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsSwitchDoc"
     })
     export default class PageComponentsSwitchDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "model-value",
                 text: "显示/隐藏，可通过v-model双向绑定，也可使用value单向控制",
@@ -98,7 +98,7 @@
             }
         ];
 
-        private events = [
+        public events = [
             {
                 name: "click",
                 text: "开关点击事件（每次点击都会触发）"

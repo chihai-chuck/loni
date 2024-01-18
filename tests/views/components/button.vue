@@ -21,28 +21,28 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from 'vue-property-decorator';
+    import { Vue, Component } from 'vue-facing-decorator';
 
     @Component
     export default class PageComponentButton extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/button/doc");
+                    $vue.$router.push("/components/button/doc");
                 }
             }
         ];
 
-        private customButtonLoading = false;
+        public customButtonLoading = false;
 
-        private asyncButtonHandler(complete?: Function) {
+        public asyncButtonHandler(complete?: Function) {
             setTimeout(() => {
-                complete && complete();
+                complete?.();
             }, 3000);
         }
 
-        private customButtonHandler() {
+        public customButtonHandler() {
             this.customButtonLoading = true;
             setTimeout(() => {
                 this.customButtonLoading = false;

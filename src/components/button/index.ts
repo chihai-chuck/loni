@@ -1,6 +1,6 @@
 import Button from "./button.vue";
 
-Button.install = function (Vue: Loni.VueConstructor) {
+Button.install = function (Vue) {
     Vue.component("loni-button", Button);
 }
 

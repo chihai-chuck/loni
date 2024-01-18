@@ -1,21 +1,17 @@
-import Vue from 'vue';
+import { createApp } from "vue";
 import App from './app.vue';
 import router from './router';
+import { browserVersion } from "@pecasha/util";
 
-import Global from "./utils/global";
+import global from "./utils/global";
 
 import loni from "../src/main";
 
-Vue.use(loni);
+loni.config.popup.maskTriggerEvent = browserVersion().mobile ? "touchstart" : "click";
 
-Vue.config.productionTip = false;
-
-Vue.use(Global);
-
-const global = new Global.Global();
-
-new Vue({
-    router,
-    global,
-    render: h => h(App),
-}).$mount('#app');
+const app = createApp(App)
+    .use(router)
+    .use(loni)
+    .use(global)
+    .mount("#app");
+(window as any).$vue = app;

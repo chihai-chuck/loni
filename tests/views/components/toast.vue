@@ -17,39 +17,38 @@
 </template>
 
 <script lang="tsx">
-    import { Vue, Component } from "vue-property-decorator";
-    import type { CreateElement } from "vue";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component
     export default class PageComponentToast extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/toast/doc");
+                    $vue.$router.push("/components/toast/doc");
                 }
             }
         ];
 
-        private top() {
+        public top() {
             this.$loni.Toast({
                 message: "一条轻提示",
                 position: "top"
             })
         }
-        private middle() {
+        public middle() {
             this.$loni.Toast({
                 message: "一条轻提示",
                 position: "middle"
             });
         }
-        private bottom() {
+        public bottom() {
             this.$loni.Toast({
                 message: "一条轻提示",
                 position: "bottom"
             })
         }
-        private long() {
+        public long() {
             this.$loni.Toast({
                 message: "生活中没有侥幸，生活将以铁一般的逻辑，粉碎任何人发自内心的背叛和疏离倾向",
                 duration: 6000
@@ -58,9 +57,9 @@
 
         private num = 3;
         private timer = 0;
-        private renderShow() {
+        public renderShow() {
             this.$loni.Toast({
-                render: (h: CreateElement) => <p>加载中... {this.num}s</p>
+                render: () => <p>加载中... {this.num}s</p>
             });
             this.timer = window.setInterval(() => {
                 this.num--;

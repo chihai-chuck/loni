@@ -1,75 +1,69 @@
-import Vue from "vue";
+import { createApp, h, getCurrentInstance } from "vue";
 import loni from "@/instance";
 import Dialog from "./dialog.vue";
 
-const dialogComponent = Dialog as Loni.Component.Dialog.Able;
+const dialogComponent = Dialog as unknown as Loni.Component.Dialog.Able;
 
-dialogComponent.install = async function (Vue: Loni.VueConstructor) {
+dialogComponent.install = async function (Vue) {
     Vue.component("loni-dialog", dialogComponent);
-    loni.Dialog = Dialog as Loni.Component.Dialog.Able;
-    Vue.prototype.$loni = loni;
+    loni.Dialog = Dialog as unknown as Loni.Component.Dialog.Able;
+    Vue.config.globalProperties.$loni = loni;
 }
 
 const cache = new Map();
 
 dialogComponent.newInstance = (data = {}, props = {}, callback?: Function) => {
-    const instance = new Vue({
-        data,
-        render(h) {
-            return h("div", {
-                class: "loni-dialog-popup",
-                style: {
-                    position: "fixed",
-                    zIndex: 1890,
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0
-                }
-            }, [
-                h(Dialog, {
-                    props: Object.assign(props, {
-                        value: false,
-                        eventOnce: true
-                    }),
-                    on: {
-                        input: (visible: boolean) => {
-                            if(!visible) {
-                                setTimeout(this.destroy, 400);
-                            }
-                        },
-                        confirm: () => {
-                            callback && callback("confirm");
-                        },
-                        cancel: () => {
-                            callback && callback("cancel");
+    const $container = document.createElement("div");
+
+    let _instance: ReturnType<typeof getCurrentInstance>;
+
+    const instance = createApp({
+        data() {
+            return data;
+        },
+        render() {
+            return h(Dialog, {
+                props: Object.assign(props, {
+                    value: false,
+                    eventOnce: true
+                }),
+                on: {
+                    input: (visible: boolean) => {
+                        if(!visible) {
+                            setTimeout(this.destroy, 400);
                         }
+                    },
+                    confirm: () => {
+                        callback?.("confirm");
+                    },
+                    cancel: () => {
+                        callback?.("cancel");
                     }
-                }, this.render ? [this.render(h)] : [])
-            ]);
+                }
+            }, this.render ? [this.render(h)] : []);
         },
         methods: {
             destroy() {
-                if(!instance._isDestroyed) {
-                    if(instance.$el.parentElement) {
-                        document.body.removeChild(instance.$el);
-                    }
-                    instance.$destroy();
-                    cache.delete(instance);
-                }
+                instance.unmount();
+                document.body.removeChild($container);
+                cache.delete(instance);
             }
+        },
+        created () {
+            _instance = getCurrentInstance();
         }
-    }).$mount();
+    }).mount($container);
 
-    document.body.appendChild(instance.$el);
-    const dialog = instance.$children[0] as unknown as Loni.Component.Dialog;
+    const modal = _instance!.refs.modal as Dialog;
+
+    document.body.appendChild($container);
 
     cache.set(instance, instance);
 
-    dialog.visible = true;
+    modal.visible = true;
 
     return {
-        component: dialog
+        component: modal
     }
 }
 
@@ -118,4 +112,4 @@ dialogComponent.close = () => {
     });
 }
 
-export default Dialog as Loni.Component.Dialog.Instance;
+export default dialogComponent as Loni.Component.Dialog.Instance;

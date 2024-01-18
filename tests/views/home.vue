@@ -7,7 +7,7 @@
         <loni-cell>
             <loni-cell-item v-for="(component,index) in componentsList"
                             :key="index"
-                            :title="component|stringCapitalize"
+                            :title="component"
                             :next="`/components/${component}`"></loni-cell-item>
         </loni-cell>
         <p class="copyright">
@@ -18,18 +18,15 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
+    import { Component, Vue } from 'vue-facing-decorator';
 
     import { stringCapitalize } from "@pecasha/util";
 
     @Component({
-        name: "PageHome",
-        filters: {
-            stringCapitalize: (val: string) => stringCapitalize(val)
-        }
+        name: "PageHome"
     })
     export default class PageHome extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-code",
                 active: () => {
@@ -38,7 +35,7 @@
             }
         ];
 
-        private componentsList = [
+        public componentsList = [
             "button",
             "cell",
             "checkbox",
@@ -51,7 +48,7 @@
             "swipeout",
             "switch",
             "toast"
-        ].sort();
+        ].sort().map(name => stringCapitalize(name));
     }
 </script>
 

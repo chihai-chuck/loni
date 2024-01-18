@@ -51,13 +51,13 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
+    import { Vue, Component } from "vue-facing-decorator";
 
     @Component({
         name: "PageComponentsButtonDoc"
     })
     export default class PageComponentsButtonDoc extends Vue {
-        private params = [
+        public params = [
             {
                 name: "width",
                 text: "按钮宽度（自定义需要带单位）",
@@ -179,7 +179,7 @@
             }
         ];
 
-        private events = [
+        public events = [
             {
                 name: "click",
                 text: "按钮点击事件",
@@ -187,7 +187,7 @@
             }
         ];
 
-        private slots = [
+        public slots = [
             {
                 name: "default",
                 text: "按钮的文字或自定义的按钮内容"

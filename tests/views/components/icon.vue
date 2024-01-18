@@ -21,15 +21,15 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component } from 'vue-property-decorator';
+    import { Vue, Component } from 'vue-facing-decorator';
 
     @Component
     export default class PageComponentIcon extends Vue {
-        private headerIcon = [
+        public headerIcon = [
             {
                 icon: "icon-loni-doc",
                 active: () => {
-                    this.$router.push("/components/icon/doc");
+                    $vue.$router.push("/components/icon/doc");
                 }
             }
         ];

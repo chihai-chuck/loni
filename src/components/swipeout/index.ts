@@ -1,6 +1,6 @@
 import Swipeout from "./swipeout.vue";
 
-Swipeout.install = function (Vue: Loni.VueConstructor) {
+Swipeout.install = function (Vue) {
     Vue.component(Swipeout.name, Swipeout);
 }
 

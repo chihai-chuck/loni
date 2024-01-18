@@ -1,19 +1,21 @@
-import Vue from "vue";
+// import { defineComponent, h } from "vue";
 import loni from "@/instance";
 import Loading from "./loading.vue";
 
-const loadingComponent = Loading as Loni.Component.Loading.Able;
+const loadingComponent = Loading as unknown as Loni.Component.Loading.Able;
 
-loadingComponent.install = function (Vue: Loni.VueConstructor) {
+loadingComponent.install = function (Vue) {
     Vue.component("loni-loading", loadingComponent);
-    loni.Loading = Loading as Loni.Component.Loading.Able;
-    Vue.prototype.$loni = loni;
+    loni.Loading = Loading as unknown as Loni.Component.Loading.Able;
+    Vue.config.globalProperties.$loni = loni;
 }
 
-loadingComponent.newInstance = (data = {}, props = {}) => {
-    const instance = new Vue({
-        data,
-        render(h) {
+/*loadingComponent.newInstance = (data = {}, props = {}) => {
+    const instance = defineComponent({
+        data() {
+            return data;
+        },
+        render() {
             return h("div", {
                 class: "loni-loading-fullscreen",
                 style: {
@@ -83,6 +85,6 @@ loadingComponent.hide = () => {
     getLoadingInstance().remove(() => {
         loadingInstance = null;
     });
-};
+};*/
 
 export default loadingComponent as Loni.Component.Loading.Instance;

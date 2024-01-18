@@ -1,13 +1,15 @@
-import Vue from "vue";
+import { defineComponent, h } from "vue";
 import loni from "@/instance";
 import Toast from "./toast.vue";
 
 const cache = new Map();
 
 const newInstance: Loni.Component.Toast.Instance = (data = {}, props = {}, callback?: Function) => {
-    const instance = new Vue({
-        data,
-        render(h) {
+    const instance = defineComponent({
+        data() {
+            return data;
+        },
+        render() {
             return h(Toast, {
                 props,
                 on: {
@@ -17,7 +19,7 @@ const newInstance: Loni.Component.Toast.Instance = (data = {}, props = {}, callb
         },
         methods: {
             destroy() {
-                if(!instance._isDestroyed) {
+                if(!instance.vnode.isUnmounted) {
                     if(instance.$el.parentElement) {
                         document.body.removeChild(instance.$el);
                     }

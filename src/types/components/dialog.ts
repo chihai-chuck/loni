@@ -35,7 +35,7 @@ declare namespace Loni {
                 /** 是否在页面切换时自动关闭 */
                 closeOnPopstate?: boolean;
                 /** 动态渲染函数 */
-                render?: (h: import("vue").CreateElement) => JSX.Element;
+                render?: import("vue").RootRenderFunction;
             }
         }
     }
